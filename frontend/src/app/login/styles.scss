@@ -1,0 +1,75 @@
+.loginAdminPage {
+	height: 100vh;
+	width: 100%;
+	background-image: url("../../../public/bg-login.svg");
+	background-position: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.loginAdmincontainer {
+	display: flex;
+	flex-basis: 20%;
+	height: 40%;
+	flex-direction: column;
+	justify-content: space-evenly;
+	text-align: center;
+	color: white;
+	border: 1px solid white;
+	border-radius: 15px;
+	padding: 20px;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.loginAdminContent {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	border: none;
+	margin-bottom: 15px;
+}
+.loginAdminContent label {
+	margin-bottom: 5px;
+	font-size: 14px;
+	color: rgb(225, 225, 225);
+}
+.loginAdminContent input {
+	border-radius: 7px;
+	padding: 5px;
+	height: 25px;
+	width: 100%;
+	border: none;
+	background-color: rgba(0, 0, 0, 0.477);
+	color: white;
+}
+.loginAdminBotao {
+	width: 100%;
+	border: none;
+	outline: none;
+	height: 27px;
+	border-radius: 7px;
+	background-color: #1da51d;
+	font-weight: bold;
+	margin-bottom: 15px;
+	cursor: pointer;
+}
+.loginAdminError {
+	background-color: rgba(47, 47, 47, 0.47);
+	font-size: 13px;
+	color: rgba(255, 255, 255, 0.867);
+	margin-top: 5px;
+	border-radius: 5px;
+	padding: 3px;
+	width: 100%;
+	text-align: left;
+}
+@media (max-width: 1024px) {
+	.loginAdmincontainer {
+		flex-basis: 30%;
+	}
+}
+@media (max-width: 480px) {
+	.loginAdmincontainer {
+		flex-basis: 60%;
+	}
+}
