@@ -22,8 +22,10 @@ const checarRotas = (rota) => {
 
 const RotaPrivada = ({ children }) => {
 	const { push } = useRouter();
-	const token = JSON.parse(localStorage.getItem("auth"));
-	const auth = token ? token : false;
+	if (typeof window !== "undefined") {
+		const token = JSON.parse(localStorage.getItem("auth"));
+		var auth = token ? token : false;
+	}
 
 	useEffect(() => {
 		if (auth.adminToken == null || !auth) {
@@ -36,8 +38,8 @@ const RotaPrivada = ({ children }) => {
 
 	return (
 		<>
-			{!auth.adminToken && null}
-			{auth.adminToken && children}
+			{typeof window !== "undefined" ? !auth.adminToken && null : null}
+			{typeof window !== "undefined" ? auth.adminToken && children : null}
 		</>
 	);
 };
