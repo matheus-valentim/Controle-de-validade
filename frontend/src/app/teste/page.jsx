@@ -18,6 +18,11 @@ import {
 	GridRowEditStopReasons,
 	ptBR,
 	GridToolbar,
+	GridToolbarColumnsButton,
+	GridToolbarFilterButton,
+	GridToolbarExport,
+	GridToolbarDensitySelector,
+	GridToolbarQuickFilter,
 } from "@mui/x-data-grid";
 
 import {
@@ -32,131 +37,18 @@ import { authContext } from "@/contexts/authContext";
 import setarTokenLocal from "../setarToken";
 import { useRouter } from "next/navigation";
 
-const initialRows = [
-	{
-		id: 0,
-		produto: "marcos",
-		validade: randomCreatedDate(),
-		criacaoData: new Date("2002/08/21"),
-		quantidade: 21,
-		edicaoData: randomCreatedDate(),
-		usuario: "kant",
-	},
-	{
-		id: 1,
-		produto: "marcelo",
-		validade: new Date("2024/02/21"),
-		criacaoData: new Date("2024/08/21"),
-		quantidade: 21,
-
-		edicaoData: randomCreatedDate(),
-		usuario: "kant",
-	},
-	{
-		id: 2,
-		produto: "mathias",
-		validade: randomCreatedDate(),
-		criacaoData: randomCreatedDate(),
-		quantidade: 21,
-
-		edicaoData: randomCreatedDate(),
-		usuario: "kant",
-	},
-	{
-		id: 3,
-		produto: "marlon",
-		validade: randomCreatedDate(),
-		criacaoData: randomCreatedDate(),
-		quantidade: 21,
-
-		edicaoData: randomCreatedDate(),
-		usuario: "kant",
-	},
-	{
-		id: 4,
-		produto: "matheus",
-		validade: randomCreatedDate(),
-		criacaoData: randomCreatedDate(),
-		quantidade: 21,
-
-		edicaoData: randomCreatedDate(),
-		usuario: "kant",
-	},
-	{
-		id: 5,
-		produto: "tiago",
-		validade: randomCreatedDate(),
-		criacaoData: randomCreatedDate(),
-		quantidade: 21,
-
-		edicaoData: randomCreatedDate(),
-		usuario: "kant",
-	},
-	{
-		id: 6,
-		produto: "carlos",
-		validade: randomCreatedDate(),
-		criacaoData: randomCreatedDate(),
-		quantidade: 21,
-
-		edicaoData: randomCreatedDate(),
-		usuario: "kant",
-	},
-
-	{
-		id: 7,
-		produto: "camilo",
-		validade: randomCreatedDate(),
-		criacaoData: randomCreatedDate(),
-		quantidade: 21,
-
-		edicaoData: randomCreatedDate(),
-		usuario: "kant",
-	},
-	{
-		id: 8,
-		produto: "miguel",
-		validade: randomCreatedDate(),
-		criacaoData: randomCreatedDate(),
-		quantidade: 21,
-
-		edicaoData: randomCreatedDate(),
-		usuario: "kant",
-	},
-	{
-		id: 9,
-		produto: "jair",
-		validade: randomCreatedDate(),
-		criacaoData: randomCreatedDate(),
-		quantidade: 21,
-
-		edicaoData: randomCreatedDate(),
-		usuario: "kant",
-	},
-	{
-		id: 10,
-		produto: "cristian",
-		validade: randomCreatedDate(),
-		criacaoData: randomCreatedDate(),
-		quantidade: 21,
-
-		edicaoData: randomCreatedDate(),
-		usuario: "kant",
-	},
-];
-
-function EditToolbar(props) {
-	const { setRows, setRowModesModel } = props;
-
+function CustomToolbar(props) {
+	const { push } = useRouter();
+	const { setRows, setRowModesModel, rows } = props;
 	const handleClick = () => {
-		const id = randomId();
+		const id = rows[rows.length - 1].id + 1;
 		setRows((oldRows) => [
 			...oldRows,
 			{
-				id,
+				id: id,
 				produto: "",
 				validade: "",
-				quantidade: "",
+				quantidade: 1,
 				usuario_editou: "matheus32",
 				usuario_criou: "matheus",
 				data_de_criacao: new Date().toLocaleDateString(),
@@ -164,18 +56,33 @@ function EditToolbar(props) {
 				isNew: true,
 			},
 		]);
+
 		setRowModesModel((oldModel) => ({
 			...oldModel,
 			[id]: { mode: GridRowModes.Edit, fieldToFocus: "produto" },
 		}));
 	};
-
+	const logout = () => {
+		localStorage.clear("auth");
+		push("/login");
+	};
 	return (
-		<GridToolbarContainer>
-			<Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-				Add Produto
-			</Button>
-			<GridToolbar></GridToolbar>
+		<GridToolbarContainer className="gridToolBar">
+			<section>
+				<Button onClick={handleClick} color="primary" startIcon={<AddIcon />}>
+					Add Produto
+				</Button>
+				<GridToolbarColumnsButton />
+				<GridToolbarFilterButton />
+				<GridToolbarDensitySelector />
+				<GridToolbarExport />
+			</section>
+			<div>
+				<GridToolbarQuickFilter />
+				<button className="btnSair" onClick={logout}>
+					SAIR
+				</button>
+			</div>
 		</GridToolbarContainer>
 	);
 }
@@ -216,7 +123,7 @@ export default function FullFeaturedCrudGrid() {
 	};
 
 	const handleDeleteClick = (id) => async () => {
-		console.log(auth.adminToken, "fnreoinfeiornvrjnvrbnibniog");
+		console.log(auth.adminToken, "ESTOU DELETANDO");
 
 		const promise = await fetch("http://localhost:3333/deletarProdutos/" + id, {
 			method: "DELETE",
@@ -228,6 +135,7 @@ export default function FullFeaturedCrudGrid() {
 		console.log(promise.ok);
 		if (promise.ok == true) {
 			setRows(rows.filter((row) => row.id !== id));
+			return;
 		}
 		localStorage.clear("auth");
 		push("/login");
@@ -250,19 +158,19 @@ export default function FullFeaturedCrudGrid() {
 	};
 
 	const columns = [
-		{ field: "produto", headerName: "Produto", width: 180, editable: true },
+		{ field: "produto", headerName: "Produto", width: 370, editable: true },
 		{
 			field: "validade",
 			headerName: "Validade",
 			type: "date",
-			width: 180,
+			width: 150,
 			editable: true,
 			valueFormatter: (params) => moment(params?.value).format("DD/MM/YYYY"),
 		},
 		{
 			field: "quantidade",
 			headerName: "Quantidade",
-			width: 220,
+			width: 150,
 			editable: true,
 			type: "number",
 		},
@@ -339,7 +247,6 @@ export default function FullFeaturedCrudGrid() {
 	const processRowUpdate = async (updatedRow, originalRow) => {
 		if (
 			updatedRow.produto.trim() == "" ||
-			updatedRow.quantidade == "" ||
 			updatedRow.quantidade == null ||
 			updatedRow.validade == null ||
 			updatedRow.validade == ""
@@ -351,7 +258,7 @@ export default function FullFeaturedCrudGrid() {
 			return originalRow;
 		}
 		if (updatedRow.isNew == true) {
-			const adicionarProdutos = async () => {
+			const adicionarProdutos = async (produto) => {
 				const novoToken = setarTokenLocal();
 				setLoading(true);
 				const data = await fetch("http://localhost:3333/adicionarProdutos", {
@@ -370,11 +277,12 @@ export default function FullFeaturedCrudGrid() {
 
 					redirect: "follow",
 					referrerPolicy: "no-referrer",
-					body: JSON.stringify(novaLinha),
+					body: JSON.stringify(produto),
 				});
 				setLoading(false);
 				return data;
 			};
+
 			const validade =
 				new Date(updatedRow.validade).getFullYear() +
 				"/" +
@@ -383,35 +291,37 @@ export default function FullFeaturedCrudGrid() {
 				new Date(updatedRow.validade).getDate();
 
 			const dataCriacao =
-				new Date(updatedRow.data_de_criacao).getFullYear() +
+				new Date().getFullYear() +
 				"/" +
-				(new Date(updatedRow.data_de_criacao).getMonth() + 1) +
+				(new Date().getMonth() + 1) +
 				"/" +
-				new Date(updatedRow.data_de_criacao).getDate();
+				new Date().getDate();
 
 			const dataEdicao =
-				new Date(updatedRow.data_de_edicao).getFullYear() +
+				new Date().getFullYear() +
 				"/" +
-				(new Date(updatedRow.data_de_edicao).getMonth() + 1) +
+				(new Date().getMonth() + 1) +
 				"/" +
-				new Date(updatedRow.data_de_edicao).getDate();
+				new Date().getDate();
+			const novaRow = { ...updatedRow, isNew: false };
+			novaRow.validade = validade;
+			novaRow.data_de_criacao = dataCriacao;
+			novaRow.data_de_edicao = dataEdicao;
+			novaRow.id = rows[rows.length - 2].id + 1;
 
-			const novaLinha = { ...updatedRow };
-			novaLinha.validade = validade;
-			novaLinha.data_de_criacao = dataCriacao;
-			novaLinha.data_de_edicao = dataEdicao;
-			const produtoAdicionado = await adicionarProdutos();
+			console.log(novaRow, "AAAAAAAAAAAAAAAAAAAAAAAAA");
+			const produtoAdicionado = await adicionarProdutos(novaRow);
 			if (produtoAdicionado.ok == false) {
 				localStorage.clear("auth");
 				push("/login");
 			}
-			console.log(produtoAdicionado);
-			setSnackbar({ children: "User successfully saved", severity: "success" });
-			return { ...updatedRow, isNew: false };
+			setRows(rows.map((row) => (row.id === updatedRow.id ? novaRow : row)));
+			setSnackbar({ children: "Produto adicionado", severity: "success" });
+			return { ...novaRow, isNew: false };
 		}
+
 		const editarProdutos = async () => {
 			const novoToken = setarTokenLocal();
-			console.log(updatedRow.isNew, auth, "frnvuierhbeuir");
 
 			setLoading(true);
 			const data = await fetch(
@@ -439,12 +349,16 @@ export default function FullFeaturedCrudGrid() {
 
 			return data;
 		};
+
 		const editado = await editarProdutos();
-		console.log(editado);
 		if (editado.ok == false) {
 			localStorage.clear("auth");
 			push("/login");
 		}
+		if (updatedRow.quantidade == "") {
+			updatedRow.quantidade = 0;
+		}
+		console.log(updatedRow);
 		const teste = { ...updatedRow, isNew: false };
 		setRows(rows.map((row) => (row.id === updatedRow.id ? teste : row)));
 		setSnackbar({ children: "Produto salvo", severity: "success" });
@@ -456,7 +370,6 @@ export default function FullFeaturedCrudGrid() {
 	}, []);
 	const onFilterChange = React.useCallback((filterModel) => {
 		// Here you save the data you need from the filter model
-		console.log(filterModel);
 	}, []);
 	React.useEffect(() => {
 		const func = async () => {
@@ -473,15 +386,14 @@ export default function FullFeaturedCrudGrid() {
 				},
 			});
 			const linha = await data.json();
+			console.log(linha, "LINHAAAAAAA");
+
 			setRows(linha);
-			console.log(linha);
 			setLoading(false);
 		};
 		func();
 	}, []);
-	React.useEffect(() => {
-		console.log(user);
-	}, [user]);
+
 	return (
 		<div>
 			<Box
@@ -501,12 +413,12 @@ export default function FullFeaturedCrudGrid() {
 					rows={rows}
 					columns={columns}
 					editMode="row"
-					filterMode="server"
 					onFilterModelChange={onFilterChange}
 					rowModesModel={rowModesModel}
 					onRowModesModelChange={handleRowModesModelChange}
 					onRowEditStop={handleRowEditStop}
 					processRowUpdate={processRowUpdate}
+					getRowId={(r) => r.id}
 					onProcessRowUpdateError={handleProcessRowUpdateError}
 					getRowClassName={(params) => {
 						return moment(params.row.validade).isBefore(new Date())
@@ -518,12 +430,13 @@ export default function FullFeaturedCrudGrid() {
 							backgroundColor: "rgba(255, 85, 85, 0.748)", // Or 'transparent' or whatever color you'd like
 						},
 					}}
-					slots={{
-						toolbar: EditToolbar,
-						GridToolbar,
-					}}
+					slots={{ toolbar: CustomToolbar }}
 					slotProps={{
-						toolbar: { setRows, setRowModesModel, showQuickFilter: true },
+						toolbar: {
+							setRows,
+							setRowModesModel,
+							rows,
+						},
 					}}
 				/>
 				{!!snackbar && (

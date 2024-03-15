@@ -1,3 +1,22 @@
 .invalido {
 	background-color: rgba(255, 85, 85, 0.548);
 }
+.gridToolBar {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+.btnSair {
+	background-color: rgb(219, 26, 26);
+	color: white;
+	padding: 10px 25px;
+	margin-left: 20px;
+	outline: none;
+	border-radius: 10px;
+	border: none;
+	border: 1px solid;
+	cursor: pointer;
+}
+.btnSair:hover {
+	background-color: rgb(160, 9, 9);
+}

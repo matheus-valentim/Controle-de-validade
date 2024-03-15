@@ -26,6 +26,7 @@ export default function LoginAdmin() {
 
 		if (dado.status == 400) {
 			console.log(dado.message);
+
 			setError(() => dado.message);
 			return;
 		}

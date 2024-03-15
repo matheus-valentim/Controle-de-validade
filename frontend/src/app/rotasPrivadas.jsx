@@ -38,7 +38,9 @@ const RotaPrivada = ({ children }) => {
 
 	return (
 		<>
-			{typeof window !== "undefined" ? !auth.adminToken && null : null}
+			{typeof window !== "undefined"
+				? !auth.adminToken && console.log("erradoddddd")
+				: null}
 			{typeof window !== "undefined" ? auth.adminToken && children : null}
 		</>
 	);

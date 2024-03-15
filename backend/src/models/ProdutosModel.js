@@ -7,6 +7,8 @@ const PegarProdutoModel = async () => {
 };
 
 const CriarProdutos = async (produto) => {
+	console.log("ISSO É UM TESTE");
+
 	const data_de_criacao = new Date();
 	const query =
 		"INSERT INTO produtos(produto, validade, quantidade, data_de_edicao, data_de_criacao, usuario_criou, usuario_editou) VALUES (?, ?, ?,?,?,?,?)";
@@ -24,6 +26,7 @@ const CriarProdutos = async (produto) => {
 };
 
 const DeletarProdutos = async (id) => {
+	console.log(id, "AAAAAAAAAAAAAAAAAAAA");
 	const [produto] = await conexao.connection.execute(
 		"DELETE FROM produtos WHERE id = ?",
 		[id]
