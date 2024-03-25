@@ -20,7 +20,7 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 ## 🚀 Instalando Controle de validade
 
-Para instalar o <nome_do_projeto>, siga estas etapas:
+Para instalar o Controle de validade, siga estas etapas:
 
 Windows:
 
@@ -30,7 +30,7 @@ npm install
 
 ## ☕ Usando Controle de validade
 
-Para usar <nome_do_projeto>, siga estas etapas:
+Para usar Controle de validade, siga estas etapas:
 
 ```
 <exemplo_de_uso>
