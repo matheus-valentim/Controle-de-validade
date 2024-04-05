@@ -40,6 +40,8 @@ const AtualizarProdutos = async (id, produto) => {
 	const [dado] = await conexao.connection.execute(
 		`SELECT * FROM produtos WHERE id =${id}`
 	);
+	console.log(dado);
+
 	const escolhido = dado[0];
 	const produto1 = () => {
 		if (produto.produto && produto.produto != escolhido.produto) {
@@ -57,6 +59,7 @@ const AtualizarProdutos = async (id, produto) => {
 		} else return escolhido.quantidade;
 	};
 	const usuario_editou = () => {
+		console.log(produto.usuario_editou);
 		if (
 			produto.usuario_editou &&
 			produto.usuario_editou != escolhido.usuario_editou

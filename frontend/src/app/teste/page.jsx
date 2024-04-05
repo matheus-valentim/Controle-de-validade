@@ -49,8 +49,8 @@ function CustomToolbar(props) {
 				produto: "",
 				validade: "",
 				quantidade: 1,
-				usuario_editou: "matheus32",
-				usuario_criou: "matheus",
+				usuario_editou: "",
+				usuario_criou: "",
 				data_de_criacao: new Date().toLocaleDateString(),
 				data_de_edicao: new Date().toLocaleDateString(),
 				isNew: true,
@@ -188,11 +188,11 @@ export default function FullFeaturedCrudGrid() {
 			headerName: "Data De Edição",
 			type: "date",
 			width: 180,
-			editable: false,
+			editable: true,
 			valueFormatter: (params) => moment(params?.value).format("DD/MM/YYYY"),
 		},
 		{
-			field: "usuario_criou",
+			field: "usuario_editou",
 			headerName: "Usuário",
 			width: 220,
 			editable: false,
@@ -257,6 +257,7 @@ export default function FullFeaturedCrudGrid() {
 			});
 			return originalRow;
 		}
+
 		if (updatedRow.isNew == true) {
 			const adicionarProdutos = async (produto) => {
 				const novoToken = setarTokenLocal();
@@ -308,24 +309,42 @@ export default function FullFeaturedCrudGrid() {
 			novaRow.data_de_criacao = dataCriacao;
 			novaRow.data_de_edicao = dataEdicao;
 			novaRow.id = rows[rows.length - 2].id + 1;
+			novaRow.usuario_criou = user.email;
+			novaRow.usuario_editou = user.email;
 
-			console.log(novaRow, "AAAAAAAAAAAAAAAAAAAAAAAAA");
 			const produtoAdicionado = await adicionarProdutos(novaRow);
 			if (produtoAdicionado.ok == false) {
 				localStorage.clear("auth");
 				push("/login");
 			}
+
 			setRows(rows.map((row) => (row.id === updatedRow.id ? novaRow : row)));
 			setSnackbar({ children: "Produto adicionado", severity: "success" });
 			return { ...novaRow, isNew: false };
 		}
 
+		const dataEdicao =
+			new Date().getFullYear() +
+			"/" +
+			(new Date().getMonth() + 1) +
+			"/" +
+			new Date().getDate();
+
+		const novaRow = { ...updatedRow, isNew: true };
+
+		novaRow.usuario_editou = user.email;
+		novaRow.data_de_edicao = dataEdicao;
+
+		if (!user.email) {
+			const email = localStorage.getItem("email");
+			novaRow.usuario_editou = email;
+		}
 		const editarProdutos = async () => {
 			const novoToken = setarTokenLocal();
 
 			setLoading(true);
 			const data = await fetch(
-				"http://localhost:3333/atualizarProdutos/" + updatedRow.id,
+				"http://localhost:3333/atualizarProdutos/" + novaRow.id,
 				{
 					method: "PUT",
 					mode: "cors",
@@ -342,7 +361,7 @@ export default function FullFeaturedCrudGrid() {
 
 					redirect: "follow",
 					referrerPolicy: "no-referrer",
-					body: JSON.stringify(updatedRow),
+					body: JSON.stringify(novaRow),
 				}
 			);
 			setLoading(false);
@@ -358,12 +377,11 @@ export default function FullFeaturedCrudGrid() {
 		if (updatedRow.quantidade == "") {
 			updatedRow.quantidade = 0;
 		}
-		console.log(updatedRow);
-		const teste = { ...updatedRow, isNew: false };
-		setRows(rows.map((row) => (row.id === updatedRow.id ? teste : row)));
+		console.log(novaRow, "ISSO É NOVO");
+		setRows(rows.map((row) => (row.id === novaRow.id ? novaRow : row)));
 		setSnackbar({ children: "Produto salvo", severity: "success" });
 
-		return teste;
+		return novaRow;
 	};
 	const handleProcessRowUpdateError = React.useCallback((error) => {
 		setSnackbar({ children: error.message, severity: "error" });

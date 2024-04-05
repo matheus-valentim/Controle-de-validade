@@ -32,6 +32,7 @@ export default function LoginAdmin() {
 		}
 		setUser({ ...dado, email: email });
 		setAuth({ adminToken: dado.adminToken, refreshToken: dado.refreshToken });
+		localStorage.setItem("email", email);
 		localStorage.setItem(
 			"auth",
 			JSON.stringify({
