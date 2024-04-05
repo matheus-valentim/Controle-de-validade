@@ -25,8 +25,6 @@ export default function LoginAdmin() {
 		const dado = await response.json();
 
 		if (dado.status == 400) {
-			console.log(dado.message);
-
 			setError(() => dado.message);
 			return;
 		}
@@ -69,7 +67,7 @@ export default function LoginAdmin() {
 							<label htmlFor="senha">Senha:</label>
 							<input
 								id="senha"
-								type="text"
+								type="password"
 								onChange={(e) => {
 									setSenha(e.target.value);
 								}}
@@ -86,7 +84,6 @@ export default function LoginAdmin() {
 							Confirmar
 						</button>
 					</form>
-					<a href="">esqueci a senha</a>
 				</section>
 			</main>
 		</section>

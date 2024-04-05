@@ -7,8 +7,6 @@ const PegarProdutoModel = async () => {
 };
 
 const CriarProdutos = async (produto) => {
-	console.log("ISSO É UM TESTE");
-
 	const data_de_criacao = new Date();
 	const query =
 		"INSERT INTO produtos(produto, validade, quantidade, data_de_edicao, data_de_criacao, usuario_criou, usuario_editou) VALUES (?, ?, ?,?,?,?,?)";
@@ -26,13 +24,6 @@ const CriarProdutos = async (produto) => {
 };
 
 const DeletarProdutos = async (id) => {
-	console.log(id, "AAAAAAAAAAAAAAAAAAAA");
-	const [produto] = await conexao.connection.execute(
-		"DELETE FROM produtos WHERE id = ?",
-		[id]
-	);
-	console.log(produto);
-
 	return produto;
 };
 
@@ -40,7 +31,6 @@ const AtualizarProdutos = async (id, produto) => {
 	const [dado] = await conexao.connection.execute(
 		`SELECT * FROM produtos WHERE id =${id}`
 	);
-	console.log(dado);
 
 	const escolhido = dado[0];
 	const produto1 = () => {
@@ -59,7 +49,6 @@ const AtualizarProdutos = async (id, produto) => {
 		} else return escolhido.quantidade;
 	};
 	const usuario_editou = () => {
-		console.log(produto.usuario_editou);
 		if (
 			produto.usuario_editou &&
 			produto.usuario_editou != escolhido.usuario_editou

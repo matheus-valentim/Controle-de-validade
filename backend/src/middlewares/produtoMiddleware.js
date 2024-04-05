@@ -26,12 +26,7 @@ const AdicionarProduto = (req, res, next) => {
 	body.validade = validade;
 	body.data_de_criacao = dataCriacao;
 	body.data_de_edicao = dataEdicao;
-	console.log(body);
-	console.log(
-		body.data_de_edicao,
-		isValid(new Date(body.validade)) === false ||
-			isValid(new Date(body.data_de_edicao)) === false
-	);
+
 	try {
 		const validade = format(new Date(body.validade), "yyyy/MM/dd");
 		const data_de_edicao = format(new Date(body.data_de_edicao), "yyyy/MM/dd");
@@ -56,7 +51,6 @@ const AdicionarProduto = (req, res, next) => {
 			return res.status(400).json({ mensage: "Preencha todos os campos." });
 		}
 	} catch {
-		console.log("deu ruim", body.validade, data_de_edicao);
 		return res.status(400).json({ mensage: "Data inválida." });
 	}
 	next();

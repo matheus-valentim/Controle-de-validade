@@ -6,7 +6,6 @@ require("dotenv").config();
 
 const loginModel = async (user) => {
 	const [hash] = await conexao.connection.execute("SELECT * FROM login");
-	console.log(hash);
 	const acharUser = hash.find((pessoa) => pessoa.email === user.email);
 
 	if (acharUser == undefined) {

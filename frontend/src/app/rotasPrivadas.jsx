@@ -10,10 +10,8 @@ const rotasPublicas = [
 const checarRotas = (rota) => {
 	const valido = rotasPublicas.map((url) => {
 		if (Object.values(url) == rota) {
-			console.log("siiiiiimmmmmmmmmmm");
 			return true;
 		} else {
-			console.log("naoooooooooooooo");
 			return false;
 		}
 	});
@@ -30,9 +28,6 @@ const RotaPrivada = ({ children }) => {
 	useEffect(() => {
 		if (auth.adminToken == null || !auth) {
 			push("/login");
-			console.log("nao auth");
-		} else {
-			console.log("tem Auth");
 		}
 	}, [push]);
 

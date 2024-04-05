@@ -34,7 +34,6 @@ import {
 import { UserProvider, userContext } from "@/contexts/userContext";
 import moment from "moment/moment";
 import { authContext } from "@/contexts/authContext";
-import setarTokenLocal from "../setarToken";
 import { useRouter } from "next/navigation";
 
 function CustomToolbar(props) {
@@ -100,7 +99,6 @@ export default function FullFeaturedCrudGrid() {
 		if (auth == "") {
 			const token = JSON.parse(localStorage.getItem("auth"));
 			if (token != null) {
-				console.log("dwqnbecfivuebnvfreunfure", token.adminToken);
 				setAuth(() => token);
 				return token;
 			}
@@ -123,8 +121,6 @@ export default function FullFeaturedCrudGrid() {
 	};
 
 	const handleDeleteClick = (id) => async () => {
-		console.log(auth.adminToken, "ESTOU DELETANDO");
-
 		const promise = await fetch("http://localhost:3333/deletarProdutos/" + id, {
 			method: "DELETE",
 			headers: {
@@ -132,7 +128,7 @@ export default function FullFeaturedCrudGrid() {
 				authorization: `Bearer ${auth.adminToken}`,
 			},
 		});
-		console.log(promise.ok);
+
 		if (promise.ok == true) {
 			setRows(rows.filter((row) => row.id !== id));
 			return;
@@ -377,7 +373,6 @@ export default function FullFeaturedCrudGrid() {
 		if (updatedRow.quantidade == "") {
 			updatedRow.quantidade = 0;
 		}
-		console.log(novaRow, "ISSO É NOVO");
 		setRows(rows.map((row) => (row.id === novaRow.id ? novaRow : row)));
 		setSnackbar({ children: "Produto salvo", severity: "success" });
 
@@ -404,7 +399,6 @@ export default function FullFeaturedCrudGrid() {
 				},
 			});
 			const linha = await data.json();
-			console.log(linha, "LINHAAAAAAA");
 
 			setRows(linha);
 			setLoading(false);
