@@ -11,7 +11,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [ x ] Mudar a data que o produto foi editado a cada edição.
 - [ x ] Colocar o nome do usuário que editou o produto.
 - [ x ] Manter o nome de usuário ao dar refresh na página.
-- [ ] Retirar código inútil.
+- [ x ] Retirar código inútil.
 
 ## 💻 Pré-requisitos
 
