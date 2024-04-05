@@ -32,14 +32,9 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 - MYSQL_USER= nome de usuario do mysql
 - MYSQL_PASSWORD= senha do mysql
 - MYSQL_DB= nome da tabela do mysql
-- ACCESS_TOKEN_SECRET= secret jwt
 - REFRESH_TOKEN= token jwt 1
 - ADMIN_TOKEN= token jwt 2
-- REFRESH_ADMIN_TOKEN= token jwt 3
-- SMTP_HOST= host do provedor de email
-- SMTP_PORT= porta do provedor de email
-- SMTP_USER= email 
-- SMTP_PASSWORD= senha do email
+
 
 para o email recomendo usar o elasticemail.
 
