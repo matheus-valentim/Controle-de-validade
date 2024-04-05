@@ -25,19 +25,19 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 - Produto: valorAtual, valorAntigo, desconto, cores, estoqueNum, valorFrete, estrelas, img1, img2, img3, img4 e tag
 
 ## campos .env
-PORT= porta do servidor
-MYSQL_HOST= host do mysql
-MYSQL_USER= nome de usuario do mysql
-MYSQL_PASSWORD= senha do mysql
-MYSQL_DB= nome da tabela do mysql
-ACCESS_TOKEN_SECRET= secret jwt
-REFRESH_TOKEN= token jwt 1
-ADMIN_TOKEN= token jwt 2
-REFRESH_ADMIN_TOKEN= token jwt 3
-SMTP_HOST= host do provedor de email
-SMTP_PORT= porta do provedor de email
-SMTP_USER= email 
-SMTP_PASSWORD= senha do email
+- PORT= porta do servidor
+- MYSQL_HOST= host do mysql
+- MYSQL_USER= nome de usuario do mysql
+- MYSQL_PASSWORD= senha do mysql
+- MYSQL_DB= nome da tabela do mysql
+- ACCESS_TOKEN_SECRET= secret jwt
+- REFRESH_TOKEN= token jwt 1
+- ADMIN_TOKEN= token jwt 2
+- REFRESH_ADMIN_TOKEN= token jwt 3
+- SMTP_HOST= host do provedor de email
+- SMTP_PORT= porta do provedor de email
+- SMTP_USER= email 
+- SMTP_PASSWORD= senha do email
 
 para o email recomendo usar o elasticemail.
 
@@ -48,9 +48,9 @@ Para instalar o Controle de validade, siga estas etapas:
 Windows:
 
 ```
-npm install
-docker run --name [nome do banco] -e MYSQL_ROOT_PASSWORD=[senha do banco] -p 3306:3306 -d mysql
-caso tenha baixado a extensão "dabatase client" clique no icone que diz "database" na esquerda e depois no mais la em cima
+- npm install
+- docker run --name [nome do banco] -e MYSQL_ROOT_PASSWORD=[senha do banco] -p 3306:3306 -d mysql
+caso tenha baixado a extensão "dabatase client" clique no icone que diz "database" na esquerda e depois no + la em cima
 coloque o nome que voce botou no banco em username a senha que voce usou no MYSQL_ROOT_PASSWORD e aperte connect
 ```
 
@@ -59,7 +59,8 @@ coloque o nome que voce botou no banco em username a senha que voce usou no MYSQ
 Para usar Controle de validade, siga estas etapas:
 
 ```
-<exemplo_de_uso>
+ative o container
+npm run dev
 ```
 
 Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Fornece uma referência de opções para pontos de bônus!
