@@ -51,9 +51,9 @@ Windows:
 
 ```
 - npm install
-- docker run --name [nome do banco] -e MYSQL_ROOT_PASSWORD=[senha do banco] -p 3306:3306 -d mysql
+- docker run --name Produtos -e MYSQL_ROOT_PASSWORD=[senha do banco] -p 3306:3306 -d mysql
 caso tenha baixado a extensão "dabatase client" clique no icone que diz "database" na esquerda e depois no + la em cima
-coloque o nome que voce botou no banco em username a senha que voce usou no MYSQL_ROOT_PASSWORD e aperte connect
+coloque o nome do banco (Produtos), a senha que voce usou no MYSQL_ROOT_PASSWORD e aperte connect
 ```
 
 ## ☕ Usando Controle de validade
