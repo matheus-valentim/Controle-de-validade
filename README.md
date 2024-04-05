@@ -63,7 +63,6 @@ ative o container
 npm run dev
 ```
 
-Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Fornece uma referência de opções para pontos de bônus!
 
 ## 📝 Licença
 
