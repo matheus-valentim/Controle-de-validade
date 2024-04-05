@@ -1,5 +1,6 @@
 # Controle de validade
 
+<img src="validade.avif" alt="Exemplo imagem">
 
 > Esse projeto foi feito para controlar a válidade de produtos perecíveis da loja onde trabalho, é um CRUD com login feito com Next, MUI-Datagrid, NodeJS, Docker e MySQL. 
 
