@@ -11,10 +11,8 @@ const loginModel = async (user) => {
 	if (acharUser == undefined) {
 		return undefined;
 	}
-	const resultado = await bcrypt.compare(
-		user.senha,
-		hash[acharUser.id - 1].senha
-	);
+	console.log(user.senha, hash[acharUser.id]);
+	const resultado = await bcrypt.compare(user.senha, hash[acharUser.id].senha);
 	if (!resultado) {
 		return false;
 	}

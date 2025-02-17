@@ -170,23 +170,7 @@ export default function FullFeaturedCrudGrid() {
 			editable: true,
 			type: "number",
 		},
-		{
-			field: "data_de_criacao",
-			headerName: "Data De Criação",
-			type: "date",
-			width: 180,
-			editable: false,
-			valueFormatter: (params) => moment(params?.value).format("DD/MM/YYYY"),
-		},
 
-		{
-			field: "data_de_edicao",
-			headerName: "Data De Edição",
-			type: "date",
-			width: 180,
-			editable: true,
-			valueFormatter: (params) => moment(params?.value).format("DD/MM/YYYY"),
-		},
 		{
 			field: "usuario_editou",
 			headerName: "Usuário",

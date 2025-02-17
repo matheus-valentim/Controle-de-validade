@@ -8,6 +8,7 @@ const PegarProdutoModel = async () => {
 
 const CriarProdutos = async (produto) => {
 	const data_de_criacao = new Date();
+	console.log(produto);
 	const query =
 		"INSERT INTO produtos(produto, validade, quantidade, data_de_edicao, data_de_criacao, usuario_criou, usuario_editou) VALUES (?, ?, ?,?,?,?,?)";
 	const [produtoCriado] = await conexao.connection.execute(query, [
@@ -24,6 +25,10 @@ const CriarProdutos = async (produto) => {
 };
 
 const DeletarProdutos = async (id) => {
+	const [produto] = await conexao.connection.execute(
+		"DELETE FROM produtos WHERE id = ?",
+		[id]
+	);
 	return produto;
 };
 
@@ -34,6 +39,7 @@ const AtualizarProdutos = async (id, produto) => {
 
 	const escolhido = dado[0];
 	const produto1 = () => {
+		console.log(produto);
 		if (produto.produto && produto.produto != escolhido.produto) {
 			return produto.produto;
 		} else return escolhido.produto;
